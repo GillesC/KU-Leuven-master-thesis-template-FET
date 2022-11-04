@@ -1,0 +1,12 @@
+This is a template for the students from the FIIW, KU Leuven Technology campus Ghent. Feel free to edit it to your needs.
+
+The required files are: 
+  parallel.sty
+  fiiw_ghent_eng.sty
+  cover_fiiw_ghent_eng.pdf
+  back_fiiw_ghent_eng.pdf
+  thesis.tex
+The other files are examples.
+
+Remarks can be sent to:
+Jannes Verstichel <jannes.verstichel@cs.kuleuven.be>

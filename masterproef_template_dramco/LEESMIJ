@@ -1,0 +1,12 @@
+Dit is een template voor thesissen geschreven door de laatstejaarsstudenten aan de FIIW, KU Leuven Technologiecampus Gent. Iedereen is echter vrij om hier aanpassingen aan te doen.
+
+De files die je nodig hebt zijn: 
+  parallel.sty
+  fiiw_gent.sty
+  cover_fiiw_gent.pdf
+  back_fiiw_gent.pdf
+  thesis.tex
+De rest zijn voorbeelden.
+
+Opmerking kan je sturen naar:
+Jannes Verstichel <jannes.verstichel@cs.kuleuven.be>

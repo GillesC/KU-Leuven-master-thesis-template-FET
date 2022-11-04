@@ -1,0 +1,145 @@
+% !TeX root = thesis.tex
+
+
+%Het eerste hoofdstuk van je thesis.
+\chapter{Changes w.r.t. the default template}\label{ch:introduction}
+
+
+
+\begin{itemize}
+    \item Changed font from default computer modern to CMBright.
+    \item Verhoogde baseline-skip in de titel. Zodat letters niet tegen elkaar plakken
+    \item Siunitx package auto toegevoegd zie gebruik: \url{https://github.com/dramco-edu/LaTex/wiki/LaTex-Tips-and-Tricks#using-si-units-numbers-angles-etc}
+    \item Gebruik nu formules inclusief eenheden via het commando:
+    \begin{lstlisting}
+    \begin{equation}
+     E = m c^2
+     \tagaddtext{[\si{\joule}]}
+    \end{equation}
+    \end{lstlisting},
+    which outputs: 
+    \begin{equation}\label{eq:emc2}
+     E = m c^2%
+     \tagaddtext{[\si{\joule}]}
+    \end{equation}
+    \item Afkortingen:
+    \begin{itemize}
+        \item  \gls{iot}      % outputs (if first occurance): Internet-of-Things (IoT)
+               % outputs (else): IoT
+   \item \glspl{lpwan}  % outputs (if first occurance): Low-Power Wide-Area Networks (LPWANs)
+               % outputs (else): LPWANs
+   \item \acrlong{iot}  % outputs: Internet-of-Things
+   \item \acrshort{iot} % outputs: IoT
+   \item \acrfull{iot}  % outputs: Internet-of-Things (IoT)
+    \end{itemize} 
+    \item \verb!\ce{CO2}! \ce{CO2}
+    \item Refs:
+        \begin{itemize}
+        
+         \item \cref{fig:example}
+        \item \cref{tab:example}
+        \item \cref{ch:introduction}
+        \item \cref{eq:emc2}
+        
+        
+        \item \verb!\cref{fig:example}! becomes \cref{fig:example}
+        \item \verb!\cref{tab:example}! becomes \cref{tab:example}
+        \item \verb!\cref{ch:introduction}! becomes \cref{ch:introduction}
+        \item \cref{eq:emc2}
+        
+        
+    \end{itemize}
+    \item numerical citation~\cite{s19030585}
+    \begin{itemize}
+    \item \verb!\cite{CallebautGilles2019ByoS}! becomes \cite{CallebautGilles2019ByoS}
+    
+        \item \verb!\citet{CallebautGilles2019ByoS}! becomes \citet{CallebautGilles2019ByoS}
+        
+        \item \verb!\citet[chap.~2]{CallebautGilles2019ByoS}! becomes \citet[chap.~2]{CallebautGilles2019ByoS}
+        \item \verb!\citep{CallebautGilles2019ByoS}! becomes \citep{CallebautGilles2019ByoS}
+        \item \verb!\citep[chap.~2]{CallebautGilles2019ByoS}! becomes \citep[chap.~2]{CallebautGilles2019ByoS}
+        \item \verb!\citep[see][]{CallebautGilles2019ByoS}! becomes \citep[see][]{CallebautGilles2019ByoS}
+        \item \verb!\citep[see][chap.~2]{CallebautGilles2019ByoS}!
+becomes \citep[see][chap.~2]{CallebautGilles2019ByoS}       
+\item \verb!\citep{s19030585,CallebautGilles2019ByoS}! becomes \citep{s19030585,CallebautGilles2019ByoS}
+    \end{itemize}
+    \item A $\SI{45}{\degree}$ angle or a \ang{45}.
+
+\item It is \SI{17}{\degreeCelsius} outside.
+
+\item  \num{1000}
+\item \num{3.45d-4}
+
+
+\item \si{kg.m/s^2} %unit only
+
+\item \SI{10}{\percent}
+\item \SI{68}{kg}
+\end{itemize}
+
+
+\begin{center}
+    \begin{tabular}{ l  l  l  p{5cm}}
+    \hline
+    Day & Min Temp & Max Temp & Summary \\ \hline
+    Monday & 11C & 22C & A clear day with lots of sunshine.  
+    However, the strong breeze will bring down the temperatures. \\ \hline
+    Tuesday & 9C & 19C & Cloudy with rain, across many northern regions. Clear spells 
+    across most of Scotland and Northern Ireland, 
+    but rain reaching the far northwest. \\ \hline
+    Wednesday & 10C & 21C & Rain will still linger for the morning. 
+    Conditions will improve by early afternoon and continue 
+    throughout the evening. \\
+    \hline
+    \end{tabular}
+\end{center}
+
+
+
+
+
+
+
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}%
+
+\begin{tabularx}{\textwidth}{ ccccX }
+  \hline
+  label 1 & label 2 & label 3 & label 4 \\
+  \hline 
+  item 1  & item 2  & item 3  & heel veel tekst die automatisch schaalt naar de inhoud.  \\
+  \hline
+\end{tabularx}
+
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.95\linewidth]{masterproef_template_dramco/figs/example.jpg}
+    \caption{Example JPG}%
+    \label{fig:example}
+\end{figure}
+ 
+\begin{table}[ht]
+\centering
+\caption{Fixed-width columns.}%
+\label{tab:example}
+\begin{tabular}[t]{l>{\raggedright}p{0.3\linewidth}>{\raggedright\arraybackslash}p{0.3\linewidth}}
+\toprule
+&Treatment A&Treatment B\\
+\midrule
+John Smith&Good response, no side-effects&No response\\
+Jane Doe&--&Good response, no side-effects\\
+Mary Johnson&No response&Good response with side-effects\\
+\bottomrule
+\end{tabular}
+\end{table}%
+
+
+
+\begin{listing}[ht]
+\inputminted{python}{code/example.py}
+\caption{Minimal working example}
+\label{listing:1}
+\end{listing}
+
+
