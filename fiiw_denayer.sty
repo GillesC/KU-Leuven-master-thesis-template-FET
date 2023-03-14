@@ -1,0 +1,247 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%		This syntax file is intended for students of the		%
+%		FIIW writing their master thesis.				%
+%		We hope they can use it as a helping hand in writing		%
+%		their thesis. 							%
+%										%
+%		Syntax originally written by Filip Van Rysselberghe		%
+%		Adapted for KaHo St. Lieven by Bart Blanckaert			%
+%										%
+%		Modified by Koen Vangheluwe based on PhD stylefile of RUG	%
+%										%
+%		Adapted for FIIW by Jannes Verstichel				%
+%       Modified by Gilles Callebaut to increase baselineskip for the title
+%                                       i.e., in case multi-line title it otherwise gets
+%                                        smashed together
+%		Last modified: 16/10/2019 v1.2 					%
+%										%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+
+\usepackage{color}
+\usepackage{parallel}
+\usepackage{textpos}
+\renewcommand{\citeauthor}[1]{\citeauthor{#1}~\cite{#1}}
+\newcommand{\reffig}[1]{Figuur~\ref{#1}}
+\newcommand{\reftable}[1]{Tabel~\ref{#1}}
+\newcommand{\refsec}[1]{Sectie~\ref{#1}}
+
+% \usepackage[scaled]{uarial}
+%\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
+
+
+% fancyheadings
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\fancyhf{}
+\fancyhead[LE,RO]{\scriptsize\bfseries\sffamily\thepage}
+\fancyhead[LO,RE]{\scriptsize\bfseries\sffamily\leftmark}
+\fancypagestyle{plain}{
+	\fancyhf{}
+	\fancyfoot[C]{\scriptsize\bfseries\sffamily\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}
+}
+
+% Koen Vangheluwe 29/05/2009: toegevoegd om "\headheight is too small" warning te voorkomen
+\setlength{\headheight}{14pt}
+
+% Koen Vangheluwe 16/03/2010: toegevoegd wegens voor witte pagina's met empty style bij het gebruik van twoside en report
+\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+  \hbox{}
+  \thispagestyle{empty}
+  \newpage
+  \if@twocolumn\hbox{}\newpage\fi\fi\fi}
+  
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% We'll head off with the definitions of the new commands %
+%	as promotor, copromotor, etc			  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\subtitle#1{\gdef\@subtitle{#1}}
+\def\promotorA[#1]#2{\gdef\@promotorAtype{#1}\gdef\@promotorAname{#2}}
+\def\promotorB[#1]#2{\gdef\@promotorBtype{#1}\gdef\@promotorBname{#2}}
+% \def\promotorC[#1]#2{\gdef\@promotorCtype{#1}\gdef\@promotorCname{#2}}
+\def\opleiding#1{\gdef\@opleiding{#1}}
+\def\afdeling#1{\gdef\@afdeling{#1}}
+\def\academicyear#1{\gdef\@academicyear{#1}}
+\def\forename#1{\gdef\@forename{#1}}
+\def\surname#1{\gdef\@surname{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	Secondly we declare and fill in the newly created variables %
+% Sometimes we use standard definitions as is the case for 	    %
+%	the titles.						    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\@title{Titel Masterproef}
+\def\@subtitle{Ondertitel (factultatief)}
+\def\@forename{Voornaam}
+\def\@surname{Achternaam}
+\def\@opleiding{naam van de opleiding}
+\def\@afdeling{afstudeerrichting}
+\def\@promotorAname{} 
+\def\@promotorBname{}
+% \def\@promotorCname{}
+\def\@promotorAtype{} 
+\def\@promotorBtype{}
+% \def\@promotorCtype{}
+\def\@academicyear{}
+
+% We also define some new if-structures to check whether you
+% want to add a specific page in your thesis\bfseries\sffamily\rightmark
+\newif\iflistoffigurespage
+\newif\iflistoftablespage
+\newif\iflistofsymbolspage
+\newif\ifacknowledgementspage
+\newif\ifabstractpage
+
+\listoffigurespagefalse
+\listoftablespagefalse
+
+\listofsymbolspagefalse
+\def\listofsymbols#1{\gdef\@listofsymbolsfile{\input{#1}}}
+
+\acknowledgementspagefalse
+\def\acknowledgements#1{\gdef\@acknowledgementsfile{\input{#1}}}
+
+\abstractpagefalse
+\def\abstracts#1{\gdef\@abstractfile{\input{#1}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	This function formats the titlepage using the	%
+%	variables set before.                		%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Define the color of the title
+\definecolor{titlegreen}{RGB}{39,142,116}
+\def\titlep{%
+	\thispagestyle{empty}
+	\setlength{\unitlength}{1cm}
+	\begin{picture}(0,0)(0,26)
+	\hspace{-10em}\includegraphics[width=\paperwidth]{cover_fiiw_denayer.pdf}
+	\end{picture}
+	\vskip1in
+	\vfill
+	\begingroup
+	    {\fontsize{42pt}{30pt}\selectfont%
+	    \textcolor{titlegreen}{{\textsc{\textsf{\@title}}}}%
+	    \par%
+	   \vspace{30pt}
+	    }
+	\endgroup
+	
+	{\LARGE\textsf{\@subtitle}}
+	\vfill
+	\begin{flushright}
+		\textsf{\LARGE\textbf{\@forename~\MakeUppercase{\@surname}}}
+	\end{flushright}
+	\vspace{10em}
+	\begin{Parallel}{0.48\textwidth}{0.52\textwidth}
+		\ParallelLText{\noindent
+ 			\begin{list}{label}{\setlength{\leftmargin}{7em}\setlength{\labelsep}{0.5em}\setlength{\labelwidth}{8em}\setlength{\itemsep}{-.5ex}}
+				\ifx \@promotorAname \@empty
+				\else
+					\large\item[\@promotorAtype:\hfill] \@promotorAname
+				\fi
+				\ifx \@promotorBname \@empty
+				\else
+					\item[ ]
+					\item[\@promotorBtype:\hfill] \@promotorBname
+				\fi
+% 				\ifx \@promotorCname \@empty
+% 				\else 
+% 					\item[\@promotorCtype:\hfill] \@promotorCname
+% 				\fi
+			\end{list}
+		}
+		\ParallelRText{\noindent \vspace{1em}
+			\large\begin{flushright}
+				Masterproef ingediend tot het behalen van \\
+				de graad van master of Science in de\\
+				industri\"ele wetenschappen: \@opleiding\ \@afdeling
+			\end{flushright}
+		}
+	\end{Parallel}
+% 	\vspace{3em}
+	\setlength{\TPHorizModule}{1cm}
+	\setlength{\TPVertModule}{1cm}
+	\begin{textblock}{5}(5.5,1.4)
+			Academiejaar \@academicyear
+	\end{textblock}
+	\cleardoublepage
+    \thispagestyle{empty}
+	\null
+	\vfill
+	\copyright Copyright KU Leuven \\\\
+	Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot KU Leuven Technologiecampus Gent, Gebroeders De Smetstraat 1, B-9000 Gent, +32 92 65 86 10 of via e-mail iiw.gent@kuleuven.be. \\\\
+	Voorafgaande schriftelijke toestemming van de promotor(en) is eveneens vereist voor het aanwenden van de in deze masterproef beschreven (originele) methoden, producten, schakelingen en programma's voor industrieel of commercieel nut en voor de inzending van deze publicatie ter deelname aan wetenschappelijke prijzen of wedstrijden.
+	\cleardoublepage
+}
+
+% Indentation
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.25ex}
+\setlength{\abovedisplayskip}{12pt plus 3pt}
+\setlength{\belowdisplayskip}{12pt plus 3pt}
+\setlength{\abovedisplayshortskip}{12pt plus 3pt}
+\setlength{\belowdisplayshortskip}{12pt plus 3pt}
+
+\parskip 1mm
+
+%%%%%%%%%%%%%%%%%%%%%%%%&&&&&&&&&&&%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BeforePreface adds the titlepage and when you                  %
+% turned on the acknowledgements page, it will be generated too  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\preface{
+	\pagenumbering{roman}
+	\titlep        
+
+	\ifacknowledgementspage 
+		\chapter*{Dankwoord} \@acknowledgementsfile
+	\fi
+
+	\ifabstractpage 
+		\chapter*{Abstract} \@abstractfile
+	\fi
+
+	\tableofcontents
+
+	\iflistoffigurespage
+		\listoffigures
+	\fi
+	
+	\iflistoftablespage
+		\listoftables
+	\fi
+
+	\iflistofsymbolspage
+		%\chapter*{Lijst van symbolen}
+		\@listofsymbolsfile
+	\fi
+       
+	\cleardoublepage
+	\pagenumbering{arabic}
+}
+
+% Start with pagestyle{headings} in case front matter isn't processed
+\pagenumbering{arabic}
+
+
+% Gilles Callebaut 16/10/2019: toegevoegd om equations te schrijven incl. eenheden (shifted naar rechts)
+% usage:
+% \begin{equation}
+% E_p \equiv \frac{P}{R}
+% \tagaddtext{[\si{\joule}]}
+% \end{equation}
+\providecommand\add@text{}
+\newcommand\tagaddtext[1]{%
+  \gdef\add@text{#1\gdef\add@text{}}}% 
+\renewcommand\tagform@[1]{%
+  \maketag@@@{\llap{\add@text\quad}(\ignorespaces#1\unskip\@@italiccorr)}%
+}
+\makeatother
+
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+\ra{1.3} 

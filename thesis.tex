@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                      %
 % LaTeX, FIIW thesis template                                          %
-% 28/11/2014 v1.2                                                      %
+% 14/03/2023 v1.3                                                      %
 %                                                                      %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass[11pt,a4paper]{report}
@@ -9,14 +9,14 @@
 %\documentclass[11pt,a4paper,twoside,openright]{report}
 
 
-
 \usepackage[a4paper,left=3.5cm, right=2.5cm, top=3.5cm, bottom=3.5cm]{geometry}
-\usepackage[dutch]{babel}
 \usepackage{graphicx}
+\graphicspath{{./figs/}}                % set graphics path to figs folder, ie now all file imports can be referenced relative to figs
 \usepackage[latin1]{inputenc}           % om niet ascii karakters rechtstreeks te kunnen inputten
 %\usepackage[utf8]{inputenc}            % commentarieer deze regel uit als je utf8 encoded files gebruikt in plaats van latin1
-\usepackage[square,numbers]{natbib} % use [1] notation
-\bibliographystyle{IEEEtranN} % how biblography is handled
+\usepackage[backend=biber, style=ieee, citestyle=numeric-comp, maxnames=99]{biblatex}
+\addbibresource{bib.bib}
+\AtBeginBibliography{\footnotesize}
 \usepackage{cmbright} % new improved font
 \usepackage{listings}             		% voor het weergeven van broncode
 \usepackage[outputdir=cache]{minted}                     % for beautiful listings
@@ -47,12 +47,14 @@
 \usepackage{tabularx}
 \usepackage{booktabs} % nice tables
 \usepackage{array} % fixed-width columns in tables
-\usepackage[capitalise,noabbrev,dutch]{cleveref}
 
 
+%%%%%%%%%%%% choose your campus and language %%%%%%%%%%%%
+% current options are: fiiw_gent (fiiw_ghent_eng), fiiw_denayer (fiiw_denayer_eng)
+\usepackage{fiiw_gent} 
+% \usepackage{fiiw_ghent_eng} % For the english version also change last page at the bottom of this file!
 
-\usepackage{fiiw_gent}
-% \usepackage{fiiw_ghent_eng} % For the english version (also change last page at the bottom of this file!
+
 
 %door onderstaande regels in commentaar te zetten, of op false, kan je pagina's weglaten
 %bijvoorbeeld het weglaten van een voorwoord, lijst met symbolen, ...
@@ -70,7 +72,6 @@
 %lijst van symbolen toevoegen?
 %\listofsymbolspagetrue
 %\listofsymbols{symbolen}				%.tex file met daarin de lijst van symbolen
-
 
 
 %informatie over het eindwerk, de promotor, ...
@@ -91,8 +92,6 @@
 \input{abbreviations.tex}
 
 \begin{document}
-\selectlanguage{dutch}
-% \selectlanguage{english} % For the english version
 \preface
 
 \printnoidxglossary[type=\acronymtype]%
@@ -103,13 +102,9 @@
 %\input{hfdst2}
 %\input{hfdst3}
 
-% Bibliografie: referenties. De items zitten in bibliografie.bib
+% Bibliografie: referenties. De items zitten in bib.bib
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Indien je ook de niet geciteerde werken in je bibliografie wil opnemen, commentarieer dan onderstaande regel uit!
-%\nocite{*}
-\bibliography{bibliografie}
-
-
+\printbibliography
 
 
 % Eventueel enkele appendices
@@ -127,7 +122,7 @@
 \chapter{Poster}
 %\includepdf{poster.pdf}
 
-\includepdf{back_fiiw_gent.pdf}
+%\includepdf{back_fiiw_gent.pdf}
 % \includepdf{back_fiiw_ghent_eng.pdf} % For the english version
 
 \end{document}
