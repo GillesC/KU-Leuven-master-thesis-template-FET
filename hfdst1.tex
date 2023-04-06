@@ -64,10 +64,10 @@ which outputs:
 
     \item It is \SI{17}{\degreeCelsius} outside.
 
-    \item  \num{1000}
+    \item  \num{10000}
     \item \num{3.45d-4}
 
-
+    \item \si{\kilo\gram\meter\per\square\second} 
     \item \si{kg.m/s^2} %unit only
 
     \item \SI{10}{\percent}
@@ -99,13 +99,22 @@ which outputs:
 
 \newcolumntype{R}{>{\raggedleft\arraybackslash}X}%
 
-\begin{tabularx}{\textwidth}{ ccccX }
-    \hline
-    label 1 & label 2 & label 3 & label 4                                                 \\
-    \hline
-    item 1  & item 2  & item 3  & heel veel tekst die automatisch schaalt naar de inhoud. \\
-    \hline
-\end{tabularx}
+
+\begin{center}
+    \begin{tabularx}{\textwidth}{ cccX }
+        \hline
+        Day       & Min Temp & Max Temp & Summary                                                      \\ \hline
+        Monday    & 11C      & 22C      & A clear day with lots of sunshine.
+        However, the strong breeze will bring down the temperatures.                                   \\ \hline
+        Tuesday   & 9C       & 19C      & Cloudy with rain, across many northern regions. Clear spells
+        across most of Scotland and Northern Ireland,
+        but rain reaching the far northwest.                                                           \\ \hline
+        Wednesday & 10C      & 21C      & Rain will still linger for the morning.
+        Conditions will improve by early afternoon and continue
+        throughout the evening.                                                                        \\
+        \hline
+    \end{tabularx}
+\end{center}
 
 
 
