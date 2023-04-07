@@ -48,6 +48,39 @@
 \usepackage{booktabs} % nice tables
 \usepackage{array} % fixed-width columns in tables
 
+%%%% Tikz %%%%
+\usepackage{pgfplots}
+\DeclareUnicodeCharacter{2212}{−}
+\usepgfplotslibrary{groupplots,dateplot}
+\usetikzlibrary{patterns,shapes.arrows}
+\pgfplotsset{compat=newest}
+%%%%%%%%%%%% MAKE FIGURES MORE UNIFORM %%%%%%%%%%%%
+\definecolor{darkgray176}{RGB}{176,176,176}
+\definecolor{color0}{RGB}{255,127,14}
+\definecolor{color1}{RGB}{44,160,44}
+\pgfplotsset{
+    every axis/.append  style={
+        title style={draw=none},
+        label style={font=\small},
+        legend style={
+            fill opacity=0.8,
+            nodes={scale=0.8, transform shape}, {draw=none}
+        },
+        tick align=outside,
+        tick pos=left,
+        x grid style={darkgray176},
+        xtick style={color=black},
+        y grid style={darkgray176},
+        ytick style={color=black},
+        grid=both,
+    },
+    every axis plot/.append style={
+        line width=1.0pt,
+        mark size=1,
+    },
+}
+
+
 
 %%%%%%%%%%%% choose your campus and language %%%%%%%%%%%%
 % current options are: fiiw_gent (fiiw_ghent_eng), fiiw_denayer (fiiw_denayer_eng)
