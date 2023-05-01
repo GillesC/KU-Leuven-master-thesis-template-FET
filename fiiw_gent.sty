@@ -48,6 +48,24 @@
 	\renewcommand{\footrulewidth}{0pt}
 }
 
+% MFA: adapted the chapter lay-out
+% GC: removed capitzlization
+\renewcommand{\chaptermark}[1]{%
+	\markboth{%
+			\chaptername\ \thechapter -%
+			\ #1}{}}
+
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\fancyhf{}
+\fancyhead[LE,RO]{\scriptsize\bfseries\sffamily\thepage}
+\fancyhead[LO,RE]{\scriptsize\bfseries\sffamily\leftmark}
+\fancypagestyle{plain}{
+	\fancyhf{}
+	\fancyfoot[C]{\scriptsize\bfseries\sffamily\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}
+}
+
 % Koen Vangheluwe 29/05/2009: toegevoegd om "\headheight is too small" warning te voorkomen
 \setlength{\headheight}{14pt}
 
@@ -68,12 +86,21 @@
 \def\subtitle#1{\gdef\@subtitle{#1}}
 \def\promotorA[#1]#2{\gdef\@promotorAtype{#1}\gdef\@promotorAname{#2}}
 \def\promotorB[#1]#2{\gdef\@promotorBtype{#1}\gdef\@promotorBname{#2}}
-% \def\promotorC[#1]#2{\gdef\@promotorCtype{#1}\gdef\@promotorCname{#2}}
+\def\promotorC[#1]#2{\gdef\@promotorCtype{#1}\gdef\@promotorCname{#2}}
 \def\opleiding#1{\gdef\@opleiding{#1}}
 \def\afdeling#1{\gdef\@afdeling{#1}}
 \def\academicyear#1{\gdef\@academicyear{#1}}
-\def\forename#1{\gdef\@forename{#1}}
-\def\surname#1{\gdef\@surname{#1}}
+\def\forenameA#1{\gdef\@forenameA{#1}}
+\def\surnameA#1{\gdef\@surnameA{#1}}
+\def\forenameB#1{\gdef\@forenameB{#1}}
+\def\surnameB#1{\gdef\@surnameB{#1}}
+
+%% Matthias Faes: define campus parameter to make one template for all campusses
+\def\campus#1{\gdef\@campus{#1}}
+
+%% MFA: define embargo
+\def\embargo#1{\gdef\@embargo{#1}}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	Secondly we declare and fill in the newly created variables %
@@ -82,17 +109,25 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \def\@title{Titel Masterproef}
 \def\@subtitle{Ondertitel (factultatief)}
-\def\@forename{Voornaam}
-\def\@surname{Achternaam}
+% MFA: added possibility of defining two students for a joint thesis
+\def\@forenameA{Voornaam A}
+\def\@surnameA{Achternaam A}
+\def\@forenameB{Voornaam B}
+\def\@surnameB{Achternaam B}
 \def\@opleiding{naam van de opleiding}
 \def\@afdeling{afstudeerrichting}
 \def\@promotorAname{} 
 \def\@promotorBname{}
-% \def\@promotorCname{}
+\def\@promotorCname{}
 \def\@promotorAtype{} 
 \def\@promotorBtype{}
-% \def\@promotorCtype{}
+\def\@promotorCtype{}
 \def\@academicyear{}
+
+% campus definition
+\def\@campus{}
+
+\def\@embargo{}
 
 % We also define some new if-structures to check whether you
 % want to add a specific page in your thesis\bfseries\sffamily\rightmark
@@ -118,27 +153,108 @@
 %	variables set before.                		%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Define the color of the title
-\definecolor{titlegreen}{RGB}{39,142,116}
+\definecolor{titlegreen}{RGB}{29,141,176}
 \def\titlep{%
 	\thispagestyle{empty}
 	\setlength{\unitlength}{1cm}
-	\begin{picture}(0,0)(0,26)
-	\hspace{-10em}\includegraphics[width=\paperwidth]{cover_fiiw_gent.pdf}
-	\end{picture}
+	
+	
+	% MFA: make margin comply with Word
+%	\geometry{right=10mm}
+	
+	%% implement all front covers of all campusses
+		
+	\newcommand{\printFrontCover}[1]
+	{
+		\ifthenelse{\equal{\@campus}{denayer}}{
+			\begin{picture}(0,0)(0,26)
+			\hspace{-10em}\includegraphics[width=\paperwidth]{cover_fiiw_denayer.pdf}
+			\end{picture}
+		}{}
+		\ifthenelse{\equal{\@campus}{denayereng}}{
+			\begin{picture}(0,0)(0,26)
+			\hspace{-10em}\includegraphics[width=\paperwidth]{cover_fiiw_denayer_eng.pdf}
+			\end{picture}
+		}{}
+		\ifthenelse{\equal{\@campus}{geel}}{
+			\begin{picture}(0,0)(0,26)
+			\hspace{-10em}\includegraphics[width=\paperwidth]{cover_fiiw_geel.pdf}
+			\end{picture}
+		}{}
+		\ifthenelse{\equal{\@campus}{geeleng}}{
+			\begin{picture}(0,0)(0,26)
+			\hspace{-10em}\includegraphics[width=\paperwidth]{cover_fiiw_geel_eng.pdf}
+			\end{picture}
+		}{}
+		\ifthenelse{\equal{\@campus}{gent}}{
+			\begin{picture}(0,0)(0,26)
+			\hspace{-10em}\includegraphics[width=\paperwidth]{cover_fiiw_gent.pdf}
+			\end{picture}
+		}{}
+		\ifthenelse{\equal{\@campus}{ghenteng}}{
+			\begin{picture}(0,0)(0,26)
+			\hspace{-10em}\includegraphics[width=\paperwidth]{cover_fiiw_ghent_eng.pdf}
+			\end{picture}
+		}{}
+		\ifthenelse{\equal{\@campus}{groept}}{
+			\begin{picture}(0,0)(0,26)
+			\hspace{-10em}\includegraphics[width=\paperwidth]{cover_fiiw_groepT.pdf}
+			\end{picture}
+		}{}
+		\ifthenelse{\equal{\@campus}{groupteng}}{
+			\begin{picture}(0,0)(0,26)
+			\hspace{-10em}\includegraphics[width=\paperwidth]{cover_fiiw_groupt_eng.pdf}
+			\end{picture}
+		}{}
+		\ifthenelse{\equal{\@campus}{brugge}}{
+			\begin{picture}(0,0)(0,26)
+			\hspace{-10em}\includegraphics[width=\paperwidth]{cover_fiiw_brugge.pdf}
+			\end{picture}
+		}{}
+		\ifthenelse{\equal{\@campus}{brugeseng}}{
+			\begin{picture}(0,0)(0,26)
+			\hspace{-10em}\includegraphics[width=\paperwidth]{cover_fiiw_bruges_eng.pdf}
+			\end{picture}
+		}{}		
+	}
+
+	\printFrontCover{\@campus}
+	\vspace{2em}
+	\begin{flushright}
+		\ifx \@embargo \@empty
+		\else
+			\begingroup
+				\fontsize{14pt}{8pt}\selectfont EMBARGO: \\
+				\vspace{0.2em}
+			\endgroup	
+			\begingroup
+				\fontsize{10pt}{7pt}\selectfont 
+				Deze masterproefscriptie staat onder embargo tot \@embargo \\
+			\endgroup	
+		\fi
+	\end{flushright}
 	\vskip1in
 	\vfill
+ % GC: nicer title rendering for large titels
 	\begingroup
-	    {\fontsize{42pt}{30pt}\selectfont%
+	    {\fontsize{42pt}{36pt}\selectfont%
 	    \textcolor{titlegreen}{{\textsc{\textsf{\@title}}}}%
 	    \par%
-	   \vspace{30pt}
+	   \vspace{10pt}
 	    }
 	\endgroup
-	
 	{\LARGE\textsf{\@subtitle}}
 	\vfill
 	\begin{flushright}
-		\textsf{\LARGE\textbf{\@forename~\MakeUppercase{\@surname}}}
+		\ifx \@forenameA \@empty
+		\else
+		\textsf{\LARGE\textbf{\@forenameA~\MakeUppercase{\@surnameA}}}\\
+		\fi
+		\ifx \@forenameB \@empty
+		\else
+		\vspace{6pt}
+		\textsf{\LARGE\textbf{\@forenameB~\MakeUppercase{\@surnameB}}}
+		\fi
 	\end{flushright}
 	\vspace{10em}
 	\begin{Parallel}{0.48\textwidth}{0.52\textwidth}
@@ -153,10 +269,10 @@
 					\item[ ]
 					\item[\@promotorBtype:\hfill] \@promotorBname
 				\fi
-% 				\ifx \@promotorCname \@empty
-% 				\else 
-% 					\item[\@promotorCtype:\hfill] \@promotorCname
-% 				\fi
+ 				\ifx \@promotorCname \@empty
+ 				\else 
+ 					\item[\@promotorCtype \hfill] \hspace{2pt} \@promotorCname
+ 				\fi
 			\end{list}
 		}
 		\ParallelRText{\noindent \vspace{1em}
@@ -167,21 +283,57 @@
 			\end{flushright}
 		}
 	\end{Parallel}
-% 	\vspace{3em}
+
 	\setlength{\TPHorizModule}{1cm}
-	\setlength{\TPVertModule}{1cm}
-	\begin{textblock}{5}(5.5,1.4)
-			Academiejaar \@academicyear
-	\end{textblock}
+	\setlength{\TPVertModule}{0.75cm}
+	\begin{flushright}
+		Academiejaar \@academicyear
+	\end{flushright}
 	\cleardoublepage
     \thispagestyle{empty}
 	\null
 	\vfill
 	\copyright Copyright KU Leuven \\\\
-	Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot KU Leuven Technologiecampus Gent, Gebroeders De Smetstraat 1, B-9000 Gent, +32 92 65 86 10 of via e-mail iiw.gent@kuleuven.be. \\\\
+	\printCopyRightInfo.\\\\	
 	Voorafgaande schriftelijke toestemming van de promotor(en) is eveneens vereist voor het aanwenden van de in deze masterproef beschreven (originele) methoden, producten, schakelingen en programma's voor industrieel of commercieel nut en voor de inzending van deze publicatie ter deelname aan wetenschappelijke prijzen of wedstrijden.
 	\cleardoublepage
 }
+
+% get correct copy right info in disclaimer. Implemented in this way as copying only the changing text leads to ugly spaces in the disclaimer
+	\newcommand{\printCopyRightInfo}[1]
+{
+	\ifthenelse{\equal{\@campus}{denayer}}{
+		Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot KU Leuven Campus De Nayer, Jan De Nayerlaan 5, B-2860 Sint-Katelijne-Waver, +32 15 31 69 44 of via e-mail iiw.denayer@kuleuven.be.
+	}{}
+	\ifthenelse{\equal{\@campus}{denayereng}}{
+		Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot KU Leuven Campus De Nayer, Jan De Nayerlaan 5, B-2860 Sint-Katelijne-Waver, +32 15 31 69 44 of via e-mail iiw.denayer@kuleuven.be.
+	}{}
+	\ifthenelse{\equal{\@campus}{geel}}{
+		Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot KU Leuven Campus Geel, Kleinhoefstraat 4, B-2440 Geel, +32 14 56 23 10 of via e-mail iiw.geel@kuleuven.be.
+	}{}
+	\ifthenelse{\equal{\@campus}{geeleng}}{
+		Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot KU Leuven Campus Geel, Kleinhoefstraat 4, B-2440 Geel, +32 14 56 23 10 of via e-mail iiw.geel@kuleuven.be.
+	}{}
+	\ifthenelse{\equal{\@campus}{gent}}{
+		Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot 	KU Leuven Technologiecampus Gent, Gebroeders De Smetstraat 1, B-9000 Gent, +32 92 65 86 10 of via e-mail iiw.gent@kuleuven.be.
+	}{}
+	\ifthenelse{\equal{\@campus}{ghenteng}}{
+		Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot KU Leuven Technologiecampus Gent, Gebroeders De Smetstraat 1, B-9000 Gent, +32 92 65 86 10 of via e-mail iiw.gent@kuleuven.be.
+	}{}
+	\ifthenelse{\equal{\@campus}{groept}}{
+		Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot 	KU Leuven Campus Groep T Leuven, Andreas Vesaliusstraat 13, B-3000 Leuven, +32 16 30 10 30 of via e-mail iiw.groept@kuleuven.be.
+	}{}
+	\ifthenelse{\equal{\@campus}{groupteng}}{
+		Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot KU Leuven Campus Groep T Leuven, Andreas Vesaliusstraat 13, B-3000 Leuven, +32 16 30 10 30 of via e-mail iiw.groept@kuleuven.be.
+	}{}
+	\ifthenelse{\equal{\@campus}{brugge}}{
+		Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot KU Leuven Campus Brugge, Spoorwegstraat 12, B-8000 Brugge, +32 50 66 48 00 of via e-mail iiw.brugge@kuleuven.be.
+	}{}
+	\ifthenelse{\equal{\@campus}{brugeseng}}{
+		Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot KU Leuven Campus Brugge, Spoorwegstraat 12, B-8000 Brugge, +32 50 66 48 00 of via e-mail iiw.brugge@kuleuven.be.
+	}{}		
+}
+
 
 % Indentation
 \setlength{\parindent}{0pt}
@@ -232,6 +384,21 @@
 \pagenumbering{arabic}
 
 
+% MFA: Zet regelasfstand cfr faculteit:
+\renewcommand{\baselinestretch}{1.15} 
+
+% MFA: Zet correcte nummeringsdiepte
+\setcounter{secnumdepth}{3}
+
+% MFA: Zet de table caption correct cfr. richtlijnen
+
+ \captionsetup[table]{
+	labelsep = newline,
+	justification=justified,
+	singlelinecheck=false,%%%%%%% a single line is centered by default
+	labelsep=space,%%%%%%
+	skip = \medskipamount}
+
 % Gilles Callebaut 16/10/2019: toegevoegd om equations te schrijven incl. eenheden (shifted naar rechts)
 % usage:
 % \begin{equation}
@@ -249,4 +416,5 @@
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
 \ra{1.3} 
 
+% GC: Include the backcover at the end of the thesis
 \AtEndDocument{\includepdf{back_fiiw_gent.pdf}}
