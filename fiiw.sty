@@ -18,8 +18,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \makeatletter
 
-\usepackage[dutch]{babel}
-\usepackage[capitalise,noabbrev,dutch]{cleveref}
+
+
 
 \usepackage{color}
 \usepackage{parallel}
@@ -149,6 +149,14 @@
 \abstractpagefalse
 \def\abstracts#1{\gdef\@abstractfile{\input{#1}}}
 
+
+\ifthenelse{\equal{\@campus}{denayer}\OR \equal{\@campus}{geel} \OR \equal{\@campus}{gent} \OR \equal{\@campus}{groept} \OR \equal{\@campus}{brugge}}{
+\usepackage[dutch]{babel}
+\usepackage[capitalise,noabbrev,dutch]{cleveref}
+}{
+\usepackage[english]{babel}
+\usepackage[capitalise,noabbrev,english]{cleveref}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	This function formats the titlepage using the	%
@@ -281,9 +289,7 @@
 	    }
 	    \ParallelRText{\noindent \vspace{1em}
 	    \large\begin{flushright}
-	    Masterproef ingediend tot het behalen van \\
-	    de graad van master of Science in de\\
-	    industri\"ele wetenschappen: \@opleiding\ \@afdeling
+        \printDegree\\
 	    \end{flushright}
 	    }
 	    \end{Parallel}
@@ -291,7 +297,8 @@
 	    \setlength{\TPHorizModule}{1cm}
 	    \setlength{\TPVertModule}{0.75cm}
 	    \begin{flushright}
-	    Academiejaar \@academicyear
+        \printAcademicYear\\
+	    %Academiejaar \@academicyear
 	    \end{flushright}
 	    \cleardoublepage
 	    \thispagestyle{empty}
@@ -299,43 +306,79 @@
 	    \vfill
 	    \copyright Copyright KU Leuven \\\\
 	    \printCopyRightInfo.\\\\	
-	    Voorafgaande schriftelijke toestemming van de promotor(en) is eveneens vereist voor het aanwenden van de in deze masterproef beschreven (originele) methoden, producten, schakelingen en programma's voor industrieel of commercieel nut en voor de inzending van deze publicatie ter deelname aan wetenschappelijke prijzen of wedstrijden.
 	    \cleardoublepage
 	    }
+     
+\newcommand{\printAcademicYear}[1]{
+\ifthenelse{\equal{\@campus}{denayer}\OR \equal{\@campus}{geel} \OR \equal{\@campus}{gent} \OR \equal{\@campus}{groept} \OR \equal{\@campus}{brugge}}{
+Academiejaar \@academicyear
+}{
+Academic year \@academicyear
+}
+}
 
+\newcommand{\printDegree}[1]{
+\ifthenelse{\equal{\@campus}{denayer}}{
+Masterproef ingediend tot het behalen van\\
+de graad van master of Science in de\\
+industri\"ele wetenschappen: \@opleiding\ \@afdeling}{}
+\ifthenelse{\equal{\@campus}{denayereng}}{
+Master's Thesis submitted to obtain\\ the degree of Master of Science in\\
+ \@opleiding\ \@afdeling programme Engineering Technology}{}
+\ifthenelse{\equal{\@campus}{geel}}{
+Masterproef ingediend tot het behalen van \\
+de graad van master of Science in de\\
+industri\"ele wetenschappen: \@opleiding\ \@afdeling}{}
+\ifthenelse{\equal{\@campus}{geeleng}}{
+Master's Thesis submitted to obtain\\ the degree of Master of Science in\\
+ \@opleiding\ \@afdeling programme Engineering Technology}{}
+\ifthenelse{\equal{\@campus}{gent}}{
+Masterproef ingediend tot het behalen van \\
+de graad van master of Science in de\\
+industri\"ele wetenschappen: \@opleiding\ \@afdeling}{}
+\ifthenelse{\equal{\@campus}{ghenteng}}{
+Master's Thesis submitted to obtain\\ the degree of Master of Science in\\
+ \@opleiding\ \@afdeling programme Engineering Technology}{}
+\ifthenelse{\equal{\@campus}{groept}}{
+Masterproef ingediend tot het behalen van\\
+de graad van master of Science in de\\
+industri\"ele wetenschappen: \@opleiding\ \@afdeling}{}
+\ifthenelse{\equal{\@campus}{groupteng}}{
+Master's Thesis submitted to obtain\\ the degree of Master of Science in\\
+ \@opleiding\ \@afdeling programme Engineering Technology}{}
+\ifthenelse{\equal{\@campus}{brugge}}{
+Masterproef ingediend tot het behalen van\\
+de graad van master of Science in de\\
+industri\"ele wetenschappen: \@opleiding\ \@afdeling}{}
+\ifthenelse{\equal{\@campus}{brugeseng}}{
+Master's Thesis submitted to obtain\\ the degree of Master of Science in\\
+ \@opleiding\ \@afdeling programme Engineering Technology}{}	
+}
 % get correct copy right info in disclaimer. Implemented in this way as copying only the changing text leads to ugly spaces in the disclaimer
 \newcommand{\printCopyRightInfo}[1]
 {
 \ifthenelse{\equal{\@campus}{denayer}}{
-Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot KU Leuven Campus De Nayer, Jan De Nayerlaan 5, B-2860 Sint-Katelijne-Waver, +32 15 31 69 44 of via e-mail iiw.denayer@kuleuven.be.
-}{}
+Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot KU Leuven Campus De Nayer, Jan De Nayerlaan 5, B-2860 Sint-Katelijne-Waver, +32 15 31 69 44 of via e-mail iiw.denayer@kuleuven.be.\\\\Voorafgaande schriftelijke toestemming van de promotor(en) is eveneens vereist voor het aanwenden van de in deze masterproef beschreven (originele) methoden, producten, schakelingen en programma's voor industrieel of commercieel nut en voor de inzending van deze publicatie ter deelname aan wetenschappelijke prijzen of wedstrijden.}{}
 \ifthenelse{\equal{\@campus}{denayereng}}{
-Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot KU Leuven Campus De Nayer, Jan De Nayerlaan 5, B-2860 Sint-Katelijne-Waver, +32 15 31 69 44 of via e-mail iiw.denayer@kuleuven.be.
-}{}
+This master's thesis is an examination document that has not been corrected for any errors.\\\\Without written permission of the supervisor(s) and the author(s) it is forbidden to reproduce or adapt in any form or by any means any part of this publication. Requests for obtaining the right to reproduce or utilise parts of this publication should be addressed to KU Leuven, De Nayer (Sint-Katelijne-Waver) Campus, Jan De Nayerlaan 5, B-2860 Sint-Katelijne-Waver, +32 15 31 69 44 or via email fet.denayer@kuleuven.be.\\\\A written permission of the supervisor(s) is also required to use the methods, products, schematics and programs described in this work for industrial or commercial use, for referring to this work in publications, and for submitting this publication in scientific contests.}{}
 \ifthenelse{\equal{\@campus}{geel}}{
-Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot KU Leuven Campus Geel, Kleinhoefstraat 4, B-2440 Geel, +32 14 56 23 10 of via e-mail iiw.geel@kuleuven.be.
-}{}
+Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot KU Leuven Campus Geel, Kleinhoefstraat 4, B-2440 Geel, +32 14 56 23 10 of via e-mail iiw.geel@kuleuven.be.\\\\Voorafgaande schriftelijke toestemming van de promotor(en) is eveneens vereist voor het aanwenden van de in deze masterproef beschreven (originele) methoden, producten, schakelingen en programma's voor industrieel of commercieel nut en voor de inzending van deze publicatie ter deelname aan wetenschappelijke prijzen of wedstrijden.}{}
 \ifthenelse{\equal{\@campus}{geeleng}}{
-Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot KU Leuven Campus Geel, Kleinhoefstraat 4, B-2440 Geel, +32 14 56 23 10 of via e-mail iiw.geel@kuleuven.be.
-}{}
+Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot KU Leuven Campus Geel, Kleinhoefstraat 4, B-2440 Geel, +32 14 56 23 10 of via e-mail iiw.geel@kuleuven.be.}{}
 \ifthenelse{\equal{\@campus}{gent}}{
-Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot 	KU Leuven Technologiecampus Gent, Gebroeders De Smetstraat 1, B-9000 Gent, +32 92 65 86 10 of via e-mail iiw.gent@kuleuven.be.
-}{}
+Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot 	KU Leuven Technologiecampus Gent, Gebroeders De Smetstraat 1, B-9000 Gent, +32 92 65 86 10 of via e-mail iiw.gent@kuleuven.be.\\\\Voorafgaande schriftelijke toestemming van de promotor(en) is eveneens vereist voor het aanwenden van de in deze masterproef beschreven (originele) methoden, producten, schakelingen en programma's voor industrieel of commercieel nut en voor de inzending van deze publicatie ter deelname aan wetenschappelijke prijzen of wedstrijden.}{}
 \ifthenelse{\equal{\@campus}{ghenteng}}{
-Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot KU Leuven Technologiecampus Gent, Gebroeders De Smetstraat 1, B-9000 Gent, +32 92 65 86 10 of via e-mail iiw.gent@kuleuven.be.
-}{}
+This master's thesis is an examination document that has not been corrected for any errors.\\\\Without written permission of the supervisor(s) and the author(s) it is forbidden to reproduce or adapt in any form or by any means any part of this publication. Requests for obtaining the right to reproduce or utilise parts of this publication should be addressed to KU Leuven, Ghent Campus, Gebroeders De Smetstraat 1, B-9000 Ghent, 
++32 92 65 86 10 or via email fet.ghent@kuleuven.be.\\\\A written permission of the supervisor(s) is also required to use the methods, products, schematics and programs described in this work for industrial or commercial use, for referring to this work in publications, and for submitting this publication in scientific contests.}{}
 \ifthenelse{\equal{\@campus}{groept}}{
-Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot 	KU Leuven Campus Groep T Leuven, Andreas Vesaliusstraat 13, B-3000 Leuven, +32 16 30 10 30 of via e-mail iiw.groept@kuleuven.be.
-}{}
+Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot 	KU Leuven Campus Groep T Leuven, Andreas Vesaliusstraat 13, B-3000 Leuven, +32 16 30 10 30 of via e-mail iiw.groept@kuleuven.be.\\\\Voorafgaande schriftelijke toestemming van de promotor(en) is eveneens vereist voor het aanwenden van de in deze masterproef beschreven (originele) methoden, producten, schakelingen en programma's voor industrieel of commercieel nut en voor de inzending van deze publicatie ter deelname aan wetenschappelijke prijzen of wedstrijden.}{}
 \ifthenelse{\equal{\@campus}{groupteng}}{
-Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot KU Leuven Campus Groep T Leuven, Andreas Vesaliusstraat 13, B-3000 Leuven, +32 16 30 10 30 of via e-mail iiw.groept@kuleuven.be.
-}{}
+This master's thesis is an examination document that has not been corrected for any errors.\\\\Without written permission of the supervisor(s) and the author(s) it is forbidden to reproduce or adapt in any form or by any means any part of this publication. Requests for obtaining the right to reproduce or utilise parts of this publication should be addressed to KU Leuven, Groep T Leuven Campus, Andreas Vesaliusstraat 13, B-3000 Leuven, +32 16 30 10 30 or via email fet.groept@kuleuven.be.\\\\A written permission of the supervisor(s) is also required to use the methods, products, schematics and programs described in this work for industrial or commercial use, for referring to this work in publications, and for submitting this publication in scientific contests}{}
 \ifthenelse{\equal{\@campus}{brugge}}{
-Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot KU Leuven Campus Brugge, Spoorwegstraat 12, B-8000 Brugge, +32 50 66 48 00 of via e-mail iiw.brugge@kuleuven.be.
-}{}
+Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot KU Leuven Campus Brugge, Spoorwegstraat 12, B-8000 Brugge, +32 50 66 48 00 of via e-mail iiw.brugge@kuleuven.be.\\\\Voorafgaande schriftelijke toestemming van de promotor(en) is eveneens vereist voor het aanwenden van de in deze masterproef beschreven (originele) methoden, producten, schakelingen en programma's voor industrieel of commercieel nut en voor de inzending van deze publicatie ter deelname aan wetenschappelijke prijzen of wedstrijden.}{}
 \ifthenelse{\equal{\@campus}{brugeseng}}{
-Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele vastgestelde fouten.\\\\Zonder voorafgaande schriftelijke toestemming van zowel de promotor(en) als de auteur(s) is overnemen, kopi\"eren, gebruiken of realiseren van deze uitgave of gedeelten ervan verboden. Voor aanvragen i.v.m.~het overnemen en/of gebruik en/of realisatie van gedeelten uit deze publicatie, kan u zich richten tot KU Leuven Campus Brugge, Spoorwegstraat 12, B-8000 Brugge, +32 50 66 48 00 of via e-mail iiw.brugge@kuleuven.be.
-}{}		
+This master's thesis is an examination document that has not been corrected for any errors.\\\\Without written permission of the supervisor(s) and the author(s) it is forbidden to reproduce or adapt in any form or by any means any part of this publication. Requests for obtaining the right to reproduce or utilise parts of this publication should be addressed to KU Leuven - Bruges, Spoorwegstraat 12, B-8200 Bruges, 
++32 50 66 48 00 or via e-mail fet.bruges@kuleuven.be.\\\\A written permission of the supervisor(s) is also required to use the methods, products, schematics and programs described in this work for industrial or commercial use, for referring to this work in publications, and for submitting this publication in scientific contests.}{}		
 }
 
 
@@ -358,7 +401,11 @@ Deze masterproef is een examendocument dat niet werd gecorrigeerd voor eventuele
 \titlep        
 
 \ifacknowledgementspage 
+\ifthenelse{\equal{\@campus}{denayer}\OR \equal{\@campus}{geel} \OR \equal{\@campus}{gent} \OR \equal{\@campus}{groept} \OR \equal{\@campus}{brugge}}{
 \chapter*{Dankwoord} \@acknowledgementsfile
+}{
+\chapter*{Acknowledgment} \@acknowledgementsfile
+}
 \fi
 
 \ifabstractpage 
