@@ -1,5 +1,7 @@
 This is a master thesis template for the students from the FIIW. 
 
+Download the zip in the releases.
+
 
 ## Interesting Resources
 
