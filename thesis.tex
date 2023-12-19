@@ -1,38 +1,43 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                      %
 % LaTeX, FIIW thesis template                                          %
-% 14/03/2023 v1.3                                                      %
-%                                                                      %
+% 19/12/2023 v1.3                                                      %
+%  TODOs:                                                              %
+%   - Translate all comments to English                                %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \documentclass[11pt,a4paper]{report}
 % Indien je je thesis recto-verso wil afdrukken gebruik je onderstaande opties i.p.v. bovenstaande
 %\documentclass[11pt,a4paper,twoside,openright]{report}
 \usepackage[a4paper,left=3.5cm, right=2.5cm, top=3.5cm, bottom=3.5cm]{geometry}
 \usepackage{graphicx}
-\graphicspath{{./figs/}}                % set graphics path to figs folder, ie now all file imports can be referenced relative to figs
-\usepackage[latin1]{inputenc}           % om niet ascii karakters rechtstreeks te kunnen inputten
-%\usepackage[utf8]{inputenc}            % commentarieer deze regel uit als je utf8 encoded files gebruikt in plaats van latin1
-\usepackage[backend=biber, style=ieee, citestyle=numeric-comp, maxnames=99]{biblatex}
+\graphicspath{{./figs/}}                        % set graphics path to figs folder, ie now all file imports can be referenced relative to figs
+\usepackage[latin1]{inputenc}                   % om niet ascii karakters rechtstreeks te kunnen inputten
+%\usepackage[utf8]{inputenc}                    % commentarieer deze regel uit als je utf8 encoded files gebruikt in plaats van latin1
+\usepackage[backend=biber, style=ieee, 
+citestyle=numeric-comp, maxnames=99]{biblatex}  % make use of the biblatex package to cite references
 \addbibresource{bib.bib}
 \AtBeginBibliography{\footnotesize}
-\usepackage{cmbright} % new improved font
-\usepackage{listings}             		% voor het weergeven van broncode
+
+\usepackage{cmbright}                           % new improved font
+\usepackage{listings}             		        % voor het weergeven van broncode
 \usepackage[outputdir=cache]{minted}                     % for beautiful listings
 \usemintedstyle{borland}
-\usepackage{verbatim}					% weergeven van code, commando's, ...
-\usepackage{hyperref}					% maak PDF van de thesis navigeerbaar
-\usepackage{url}						% URL's invoegen in tekst met behulp van \url{http://}
-\usepackage[small,bf,hang]{caption}     % om de captions wat te verbeteren
-\usepackage[final]{pdfpages}            % gebruikt voor het invoegen van het artikel in pdf-formaat
-%\usepackage{pslatex}					% andere lettertype's dan de standaard types
+\usepackage{verbatim}					        % weergeven van code, commando's, ...
+\usepackage{hyperref}					        % maak PDF van de thesis navigeerbaar
+\usepackage{url}						        % URL's invoegen in tekst met behulp van \url{http://}
+\usepackage[small,bf,hang]{caption}             % om de captions wat te verbeteren
+\usepackage[final]{pdfpages}                    % gebruikt voor het invoegen van het artikel in pdf-formaat
+%\usepackage{pslatex}					        % andere lettertype's dan de standaard types
 
-%\usepackage{sectsty}					% aanpassen van de fonts van sections en chapters
+%\usepackage{sectsty}					        % aanpassen van de fonts van sections en chapters
 %\allsectionsfont{\sffamily}
 %\chapterfont{\raggedleft\sffamily}
 
-\usepackage{float}                      % De optie H voor de plaatsing van figuren op de plaats waar je ze invoegt. bvb. \begin{figure}[H]
-%\usepackage{longtable}					% tabellen die over meerdere pagina's gespreid worden
-%\usepackage[times]{quotchap}           % indien je fancy hoofdstuktitels wil
+\usepackage{float}                              % De optie H voor de plaatsing van figuren op de plaats waar je ze invoegt. bvb. \begin{figure}[H]
+%\usepackage{longtable}					        % tabellen die over meerdere pagina's gespreid worden
+%\usepackage[times]{quotchap}                   % indien je fancy hoofdstuktitels wil
 %\usepackage[none]{hyphenat}
 %\usepackage{latexsym}
 \usepackage{amsmath}
@@ -41,10 +46,10 @@
 \sisetup{detect-all}
 \usepackage[acronym,xindy]{glossaries}
 \makenoidxglossaries
-\usepackage[version=4]{mhchem} % chemical formulas
+\usepackage[version=4]{mhchem}                  % chemical formulas
 \usepackage{tabularx}
-\usepackage{booktabs} % nice tables
-\usepackage{array} % fixed-width columns in tables
+\usepackage{booktabs}                           % nice tables
+\usepackage{array}                              % fixed-width columns in tables
 
 %%%% Tikz %%%%
 \usepackage{pgfplots}
@@ -103,15 +108,17 @@
 %\listofsymbols{symbolen}				%.tex file met daarin de lijst van symbolen
 
 
-%informatie over het eindwerk, de promotor, ...
+% Information about your discipline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\opleiding{naam opleiding}
-\afdeling{afstudeerrichting}
-\campus{ghenteng}
-\title{Titel Masterproef}
-\subtitle{Ondertitel (facultatief)}
-\forenameA{Voornaam}
-\surnameA{Achternaam}
+
+\opleiding{discipline name}
+\afdeling{specialisation}
+\campus{ghenteng}                       % Define your campus and language (append "eng" to load the English template)
+                                            % campuses: denayer, geel, gent, groept, brugge
+\title{Title Masterproef}
+\subtitle{subttile (optionale)}
+\forenameA{first name}
+\surnameA{last name}
 \forenameB{} %keep empty if no 2nd author
 \surnameB{} %keep empty if no 2nd author
 \academicyear{2023 - 2024}
