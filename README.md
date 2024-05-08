@@ -34,6 +34,13 @@ Change your campus, language and other information in `main.tex`.
 
 ### Changing the language
 
+## FAQ
+
+### The cover/back of my campus need to be changed
+
+Renaming of campuses is unfrntualy not uncommon. For now, to update your cover and back, go to the [official KU Leuven template website](https://iiw.kuleuven.be/english/students/master-thesis/templates) and download the Word version of the template.
+Remove all text except the header and footers and save it as a PDF (one page per cover/back). Add the new cover by cloning this repo, add the covers/back to your repo and create a PR back to this repo. 
+
 
 ## Bugs and extensions
 If you find a bug or want to request an extension to the template, you have two options:
