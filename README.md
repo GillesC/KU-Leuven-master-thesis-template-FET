@@ -1,4 +1,4 @@
-This is a master thesis template for the students from the FIIW. 
+This is a master thesis template for the students from the FIIW/FET. 
 
 Download the zip in the releases.
 
