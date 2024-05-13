@@ -1,4 +1,4 @@
-This is a master thesis template for the students from the FIIW/FET. 
+This is a master thesis template for the students from the [Faculty of Engineering Technology](https://iiw.kuleuven.be/english). 
 
 
 ## Interesting Resources
