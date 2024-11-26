@@ -140,13 +140,13 @@
 \listoftablespagefalse
 
 \listofsymbolspagefalse
-\def\listofsymbols#1{\gdef\@listofsymbolsfile{\input{#1}}}
+\def\listofsymbols#1{\gdef\@listofsymbolsfile{\input{chapters/#1}}}
 
 \acknowledgementspagefalse
-\def\acknowledgements#1{\gdef\@acknowledgementsfile{\input{#1}}}
+\def\acknowledgements#1{\gdef\@acknowledgementsfile{\input{chapters/#1}}}
 
 \abstractpagefalse
-\def\abstracts#1{\gdef\@abstractfile{\input{#1}}}
+\def\abstracts#1{\gdef\@abstractfile{\input{chapters/#1}}}
 
 
 \ifthenelse{\equal{\@campus}{denayer}\OR \equal{\@campus}{geel} \OR \equal{\@campus}{gent} \OR \equal{\@campus}{groept} \OR \equal{\@campus}{brugge}}{
