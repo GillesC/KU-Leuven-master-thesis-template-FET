@@ -30,9 +30,22 @@ Change your campus, language and other information in `main.tex`.
 \academicyear{2023 - 2024}
 ```
 
-### Changing the campus
+### Options
 
-### Changing the language
+#### NL
+- denayer
+- geel
+- gent
+- groept
+- brugge
+
+#### EN
+- denayereng
+- geeleng
+- ghenteng
+- groupteng
+- brugeseng
+
 
 ## FAQ
 
