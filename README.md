@@ -1,7 +1,7 @@
 This is a master thesis template for the students from the [Faculty of Engineering Technology](https://iiw.kuleuven.be/english). 
 
 
-## Interesting Resources (ordered qccording to relevance/importance)
+## Interesting Resources (ordered according to relevance/importance)
 
 - [LaTeX Workshop](https://github.com/GillesC/LaTeX-Workshop)
 - [Intro LaTeX](https://github.com/dramco-edu/LaTex)
