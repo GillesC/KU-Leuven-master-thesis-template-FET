@@ -1,13 +1,11 @@
 This is a master thesis template for the students from the [Faculty of Engineering Technology](https://iiw.kuleuven.be/english). 
 
 
-## Interesting Resources
+## Interesting Resources (ordered qccording to relevance/importance)
 
-### Writing scientific documents in LaTeX
-https://github.com/DRAMCO/writing-scientific-papers-in-latex-tips-and-tricks
-
-### Introduction to LaTeX
-https://github.com/dramco-edu/LaTex
+- [LaTeX Workshop](https://github.com/GillesC/LaTeX-Workshop)
+- [Intro LaTeX](https://github.com/dramco-edu/LaTex)
+- [Writing scientific documents in LaTeX](https://github.com/DRAMCO/writing-scientific-papers-in-latex-tips-and-tricks)
 
 ## Using the template
 
