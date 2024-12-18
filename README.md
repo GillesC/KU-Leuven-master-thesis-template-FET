@@ -3,7 +3,7 @@ This is a master thesis template for the students from the [Faculty of Engineeri
 
 ## Interesting Resources (ordered according to relevance/importance)
 
-- [LaTeX Workshop](https://github.com/GillesC/LaTeX-Workshop)
+- [LaTeX Workshop](https://github.com/GillesC/LaTeX-Workshop/blob/main/LaTeX_Workshop.pdf)
 - [Intro LaTeX](https://github.com/dramco-edu/LaTex)
 - [Writing scientific documents in LaTeX](https://github.com/DRAMCO/writing-scientific-papers-in-latex-tips-and-tricks)
 
