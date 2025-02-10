@@ -146,7 +146,10 @@
 \def\acknowledgements#1{\gdef\@acknowledgementsfile{\input{chapters/#1}}}
 
 \abstractpagefalse
-\def\abstracts#1{\gdef\@abstractfile{\input{chapters/#1}}}
+\def\abstracts#1{
+\gdef\@abstractfileenglish{\input{chapters/#1-EN}}
+\gdef\@abstractfiledutch{\input{chapters/#1-NL}}
+}
 
 
 \ifthenelse{\equal{\@campus}{denayer}\OR \equal{\@campus}{geel} \OR \equal{\@campus}{gent} \OR \equal{\@campus}{groept} \OR \equal{\@campus}{brugge}}{
@@ -401,9 +404,9 @@ This master's thesis is an examination document that has not been corrected for 
 
 \ifacknowledgementspage 
 \ifthenelse{\equal{\@campus}{denayer}\OR \equal{\@campus}{geel} \OR \equal{\@campus}{gent} \OR \equal{\@campus}{groept} \OR \equal{\@campus}{brugge}}{
-\chapter*{Dankwoord} \@acknowledgementsfile
+\chapter*{Voorwoord} \@acknowledgementsfile
 }{
-\chapter*{Acknowledgment} \@acknowledgementsfile
+\chapter*{Preface} \@acknowledgementsfile
 }
 \fi
 
@@ -413,8 +416,11 @@ This master's thesis is an examination document that has not been corrected for 
 \includepdf{covers/Disclaimer_EN.pdf}
 }
 
+
 \ifabstractpage 
-\chapter*{Abstract} \@abstractfile
+\chapter*{Samenvatting} \@abstractfiledutch
+\clearpage
+\chapter*{Summary} \@abstractfileenglish
 \fi
 
 \tableofcontents
