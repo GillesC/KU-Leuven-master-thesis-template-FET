@@ -151,14 +151,22 @@
 \gdef\@abstractfiledutch{\input{chapters/#1-NL}}
 }
 
+\usepackage{csquotes}
 
-\ifthenelse{\equal{\@campus}{denayer}\OR \equal{\@campus}{geel} \OR \equal{\@campus}{gent} \OR \equal{\@campus}{groept} \OR \equal{\@campus}{brugge}}{
+\newcommand{\loadLanguage}{\ifthenelse{
+\equal{\@campus}{denayer}\OR \equal{\@campus}{geel} \OR \equal{\@campus}{gent} \OR \equal{\@campus}{groept} \OR \equal{\@campus}{brugge}
+}{
 \usepackage[dutch]{babel}
 \usepackage[capitalise,noabbrev,dutch]{cleveref}
+\addto\captionsdutch{%
+  \renewcommand{\acronymname}{Acroniemen}
+}
 }{
 \usepackage[english]{babel}
 \usepackage[capitalise,noabbrev,english]{cleveref}
-}
+}}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	This function formats the titlepage using the	%
@@ -318,6 +326,7 @@ Academiejaar \@academicyear
 Academic year \@academicyear
 }
 }
+
 
 \newcommand{\printDegree}[1]{
 \ifthenelse{\equal{\@campus}{denayer}}{

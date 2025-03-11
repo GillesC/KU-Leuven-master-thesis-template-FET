@@ -10,9 +10,11 @@ Student name: \@forenameA \ \@surnameA
 \end{tabbing}
 
 This form is related to my Master thesis. \\
-
-Title Master thesis: \underline{\hspace{5cm}} \hspace{1cm} Promoter: \underline{\hspace{5cm}} \\
+\makeatletter% required keep
+Title Master thesis: \@title \hspace{1cm} Promoter: \underline{\hspace{5cm}}\\
 Daily supervisor: \underline{\hspace{5cm}}
+\makeatother
+
 
 \section*{Use of GenAI Assistance}
 Please indicate with "X" (possibly multiple times) in which way you were using GenAI:
