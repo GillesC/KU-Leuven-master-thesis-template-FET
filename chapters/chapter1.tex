@@ -1,16 +1,61 @@
-% !TeX root = thesis.tex
+% !TeX root = ../thesis.tex
 
 
-%Het eerste hoofdstuk van je thesis.
+%The first chapter of your thesis.
 \chapter{Changes w.r.t. the default template}\label{ch:introduction}
 
 
 
+% Placeholder prose for previewing the campus layout; replace with your own text.
+\section{Example text}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum.
+
+Praesent vitae arcu non ipsum consequat tincidunt. Integer euismod, neque sed
+finibus tincidunt, lorem erat malesuada nibh, vitae facilisis justo nulla in
+urna. Aliquam erat volutpat. Donec tristique lacus vel sapien suscipit, sit
+amet consequat neque interdum. Curabitur blandit tempus porttitor. Maecenas
+faucibus mollis interdum. Vestibulum ante ipsum primis in faucibus orci luctus
+et ultrices posuere cubilia curae; aenean eu leo quam. Pellentesque ornare sem
+lacinia quam venenatis vestibulum.
+
+Nullam quis risus eget urna mollis ornare vel eu leo. Cras mattis consectetur
+purus sit amet fermentum. Donec ullamcorper nulla non metus auctor fringilla.
+Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Morbi
+leo risus, porta ac consectetur ac, vestibulum at eros. Sed posuere consectetur
+est at lobortis. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem
+malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor
+mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+
+Suspendisse potenti. Phasellus dignissim, sapien quis volutpat tincidunt, eros
+nisl scelerisque turpis, nec tincidunt augue justo vitae neque. Nam eget erat
+at magna pellentesque vulputate. Mauris non lorem sed augue malesuada
+ullamcorper. Sed viverra nibh ut felis consequat, at scelerisque dolor
+sollicitudin. Proin consequat magna quis lacus malesuada, sed tincidunt mauris
+consequat. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
+Nunc auctor, arcu vitae dignissim tincidunt, purus lectus suscipit metus, vel
+vulputate nisl neque vitae arcu.
+
+Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
+turpis egestas. Quisque volutpat condimentum velit. Class aptent taciti sociosqu
+ad litora torquent per conubia nostra, per inceptos himenaeos. In consectetur,
+elit quis fermentum viverra, neque arcu pellentesque lectus, vitae tincidunt
+libero justo ac ipsum. Aenean commodo ligula eget dolor. Aenean massa. Cum
+sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
+
+\section{Template features}
+
 \begin{itemize}
 \item Changed font from default computer modern to CMBright.
-\item Verhoogde baseline-skip in de titel. Zodat letters niet tegen elkaar plakken
-\item Siunitx package auto toegevoegd zie gebruik: \url{https://github.com/dramco-edu/LaTex/wiki/LaTex-Tips-and-Tricks#using-si-units-numbers-angles-etc}
-\item Gebruik nu formules inclusief eenheden via het commando:
+\item Increased line spacing in the title to prevent letters from overlapping.
+\item The siunitx package is included; see examples at: \url{https://github.com/dramco-edu/LaTex/wiki/LaTex-Tips-and-Tricks#using-si-units-numbers-angles-etc}
+\item Include units alongside equations using the following command:
 \begin{lstlisting}
     \begin{equation}
      E = m c^2
@@ -22,7 +67,7 @@ which outputs:
     E = m c^2%
     \tagaddtext{[\si{\joule}]}
 \end{equation}
-\item Afkortingen:
+\item Abbreviations:
 \begin{itemize}
     \item  \gls{iot}      % outputs (if first occurance): Internet-of-Things (IoT)
           % outputs (else): IoT
@@ -49,7 +94,7 @@ which outputs:
 
 
 \end{itemize}
-\item numerical citation~\cite{s19030585}
+\item numerical citation~\cite{ottoylorawan}
 \begin{itemize}
     \item \verb!\cite{callebaut10lorawan}! becomes \cite{callebaut10lorawan}
 
@@ -75,7 +120,8 @@ which outputs:
 \end{itemize}
 
 
-\begin{center}
+\begin{table*}[t]
+    \centering
     \begin{tabular}{ l  l  l  p{5cm}}
         \hline
         Day       & Min Temp & Max Temp & Summary                                                      \\ \hline
@@ -89,7 +135,7 @@ which outputs:
         throughout the evening.                                                                        \\
         \hline
     \end{tabular}
-\end{center}
+\end{table*}
 
 
 
@@ -100,7 +146,8 @@ which outputs:
 \newcolumntype{R}{>{\raggedleft\arraybackslash}X}%
 
 
-\begin{center}
+\begin{table*}[t]
+    \centering
     \begin{tabularx}{\textwidth}{ cccX }
         \hline
         Day       & Min Temp & Max Temp & Summary                                                      \\ \hline
@@ -114,7 +161,7 @@ which outputs:
         throughout the evening.                                                                        \\
         \hline
     \end{tabularx}
-\end{center}
+\end{table*}
 
 
 
@@ -125,7 +172,7 @@ which outputs:
     \label{fig:example}
 \end{figure}
 
-\begin{table}[ht]
+\begin{table*}[t]
     \centering
     \caption{Fixed-width columns.}%
     \label{tab:example}
@@ -138,15 +185,15 @@ which outputs:
         Mary Johnson & No response                    & Good response with side-effects \\
         \bottomrule
     \end{tabular}
-\end{table}%
+\end{table*}%
 
 
 
-\begin{listing}[ht]
-    \inputminted{python}{code/example.py}
+\begin{listing*}[t]
+    \inputminted[breaklines]{python}{code/example.py}
     \caption{Minimal working example}
     \label{listing:1}
-\end{listing}
+\end{listing*}
 
 \begin{figure}
     \centering

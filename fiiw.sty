@@ -24,9 +24,9 @@
 \usepackage{parallel}
 \usepackage{textpos}
 \newcommand{\citeauthorref}[1]{\citeauthor{#1}~\cite{#1}}
-\newcommand{\reffig}[1]{Figuur~\ref{#1}}
-\newcommand{\reftable}[1]{Tabel~\ref{#1}}
-\newcommand{\refsec}[1]{Sectie~\ref{#1}}
+\newcommand{\reffig}[1]{\figurename~\ref{#1}}
+\newcommand{\reftable}[1]{\tablename~\ref{#1}}
+\newcommand{\refsec}[1]{\iflanguage{dutch}{Sectie}{Section}~\ref{#1}}
 
 % \usepackage[scaled]{uarial}
 %\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
@@ -48,7 +48,7 @@
 }
 
 % MFA: adapted the chapter lay-out
-% GC: removed capitzlization
+% GC: removed capitalisation
 \renewcommand{\chaptermark}[1]{%
 	\markboth{%
 			\chaptername\ \thechapter -%
@@ -65,10 +65,10 @@
 			\renewcommand{\footrulewidth}{0pt}
 			}
 
-% Koen Vangheluwe 29/05/2009: toegevoegd om "\headheight is too small" warning te voorkomen
+% Koen Vangheluwe 29/05/2009: added to prevent the "\headheight is too small" warning
 \setlength{\headheight}{14pt}
 
-% Koen Vangheluwe 16/03/2010: toegevoegd wegens voor witte pagina's met empty style bij het gebruik van twoside en report
+% Koen Vangheluwe 16/03/2010: use the empty page style for blank pages in two-sided reports
 \def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
 \hbox{}
 \thispagestyle{empty}
@@ -80,7 +80,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % We'll head off with the definitions of the new commands %
-%	as promotor, copromotor, etc			  %
+%	for supervisors, co-supervisors, etc.			  %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \def\subtitle#1{\gdef\@subtitle{#1}}
 \def\promotorA[#1]#2{\gdef\@promotorAtype{#1}\gdef\@promotorAname{#2}}
@@ -88,6 +88,14 @@
 \def\promotorC[#1]#2{\gdef\@promotorCtype{#1}\gdef\@promotorCname{#2}}
 \def\opleiding#1{\gdef\@opleiding{#1}}
 \def\afdeling#1{\gdef\@afdeling{#1}}
+
+% English metadata commands; Dutch names remain available for compatibility.
+\let\programme\opleiding
+\let\specialisation\afdeling
+\let\supervisorA\promotorA
+\let\supervisorB\promotorB
+\let\supervisorC\promotorC
+
 \def\academicyear#1{\gdef\@academicyear{#1}}
 \def\forenameA#1{\gdef\@forenameA{#1}}
 \def\surnameA#1{\gdef\@surnameA{#1}}
@@ -106,15 +114,15 @@
 % Sometimes we use standard definitions as is the case for 	    %
 %	the titles.						    %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\def\@title{Titel Masterproef}
-\def\@subtitle{Ondertitel (factultatief)}
+\def\@title{Master's thesis title}
+\def\@subtitle{Subtitle (optional)}
 % MFA: added possibility of defining two students for a joint thesis
-\def\@forenameA{Voornaam A}
-\def\@surnameA{Achternaam A}
-\def\@forenameB{Voornaam B}
-\def\@surnameB{Achternaam B}
-\def\@opleiding{naam van de opleiding}
-\def\@afdeling{afstudeerrichting}
+\def\@forenameA{First name A}
+\def\@surnameA{Last name A}
+\def\@forenameB{First name B}
+\def\@surnameB{Last name B}
+\def\@opleiding{programme name}
+\def\@afdeling{specialisation}
 \def\@promotorAname{} 
 \def\@promotorBname{}
 \def\@promotorCname{}
@@ -125,6 +133,7 @@
 
 % campus definition
 \def\@campus{}
+\RequirePackage{fiiw-campus}
 
 \def\@embargo{}
 
@@ -257,7 +266,7 @@
 	\end{flushright}
 	\vskip1in
 	\vfill
- % GC: nicer title rendering for large titels
+ % GC: nicer title rendering for long titles
  \begingroup
 	    {\fontsize{42pt}{36pt}\selectfont%
 	    \textcolor{titlegreen}{{\textsc{\textsf{\@title}}}}%
@@ -308,7 +317,7 @@
 	    \setlength{\TPVertModule}{0.75cm}
 	    \begin{flushright}
         \printAcademicYear\\
-	    %Academiejaar \@academicyear
+	    %Academic year \@academicyear
 	    \end{flushright}
 	    \cleardoublepage
 	    \thispagestyle{empty}
@@ -443,25 +452,25 @@ This master's thesis is an examination document that has not been corrected for 
 \fi
 
 \iflistofsymbolspage
-		%\chapter*{Lijst van symbolen}
+		%\chapter*{List of symbols}
 		\@listofsymbolsfile
 		\fi
 		
 		\cleardoublepage
-		\pagenumbering{arabic}
+		% Arabic numbering begins at \thesiscontent, after all front matter.
 		}
 
 % Start with pagestyle{headings} in case front matter isn't processed
 \pagenumbering{arabic}
 
 
-% MFA: Zet regelasfstand cfr faculteit:
+% MFA: set line spacing according to the faculty guidelines
 \renewcommand{\baselinestretch}{1.15} 
 
-% MFA: Zet correcte nummeringsdiepte
+% MFA: set the heading numbering depth
 \setcounter{secnumdepth}{3}
 
-% MFA: Zet de table caption correct cfr. richtlijnen
+% MFA: format table captions according to the guidelines
 
 \captionsetup[table]{
 labelsep = newline,
@@ -470,7 +479,7 @@ justification=justified,
 	labelsep=space,%%%%%%
 	skip = \medskipamount}
 
-% Gilles Callebaut 16/10/2019: toegevoegd om equations te schrijven incl. eenheden (shifted naar rechts)
+% Gilles Callebaut 16/10/2019: added support for units beside equation numbers (aligned to the right)
 % usage:
 % \begin{equation}
 % E_p \equiv \frac{P}{R}

@@ -40,10 +40,10 @@
 	\renewcommand{\footrulewidth}{0pt}
 }
 
-% Koen Vangheluwe 29/05/2009: toegevoegd om "\headheight is too small" warning te voorkomen
+% Koen Vangheluwe 29/05/2009: added to prevent the "\headheight is too small" warning
 \setlength{\headheight}{14pt}
 
-% Koen Vangheluwe 16/03/2010: toegevoegd wegens voor witte pagina's met empty style bij het gebruik van twoside en report
+% Koen Vangheluwe 16/03/2010: use the empty page style for blank pages in two-sided reports
 \def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
   \hbox{}
   \thispagestyle{empty}
@@ -53,7 +53,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % We'll head off with the definitions of the new commands %
-%	as promotor, copromotor, etc			  %
+%	for supervisors, co-supervisors, etc.			  %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \def\subtitle#1{\gdef\@subtitle{#1}}
 \def\promotorA[#1]#2{\gdef\@promotorAtype{#1}\gdef\@promotorAname{#2}}
@@ -61,6 +61,13 @@
 % \def\promotorC[#1]#2{\gdef\@promotorCtype{#1}\gdef\@promotorCname{#2}}
 \def\opleiding#1{\gdef\@opleiding{#1}}
 \def\afdeling#1{\gdef\@afdeling{#1}}
+
+% English metadata commands; Dutch names remain available for compatibility.
+\let\programme\opleiding
+\let\specialisation\afdeling
+\let\supervisorA\promotorA
+\let\supervisorB\promotorB
+
 \def\academicyear#1{\gdef\@academicyear{#1}}
 \def\forename#1{\gdef\@forename{#1}}
 \def\surname#1{\gdef\@surname{#1}}

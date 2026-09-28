@@ -1,0 +1,164 @@
+\NeedsTeXFormat{LaTeX2e}[2020/10/01]
+\ProvidesPackage{fiiw-campus}[2026/09/28 Campus layout and content-page limits]
+\RequirePackage{keyval}
+\RequirePackage{geometry}
+
+\newif\iffiiw@paperlayout
+\define@key{fiiw}{layout}{%
+  \def\fiiw@value{#1}%
+  \def\fiiw@paper{paper}%
+  \def\fiiw@report{report}%
+  \ifx\fiiw@value\fiiw@paper
+    \fiiw@paperlayouttrue
+  \else\ifx\fiiw@value\fiiw@report
+    \fiiw@paperlayoutfalse
+  \else
+    \PackageError{fiiw-campus}{Layout must be paper or report}{Check campus-profiles.tex or \string\campussetup.}%
+  \fi\fi}
+
+\newcommand{\fiiw@columns}{1}
+\newcommand{\fiiw@maxcontentpages}{0}
+\newcommand{\fiiw@overrides}{}
+\define@key{fiiw}{columns}{%
+  \ifnum#1=1\relax
+    \def\fiiw@columns{1}%
+  \else\ifnum#1=2\relax
+    \def\fiiw@columns{2}%
+  \else
+    \PackageError{fiiw-campus}{Columns must be 1 or 2}{Check campus-profiles.tex or \string\campussetup.}%
+  \fi\fi}
+\define@key{fiiw}{max-content-pages}{%
+  \ifnum#1<0\relax
+    \PackageError{fiiw-campus}{Content-page limit must be nonnegative}{Use 0 to disable the limit.}%
+  \else
+    \def\fiiw@maxcontentpages{#1}%
+  \fi}
+
+% Language variants share a profile. Later declarations replace earlier ones.
+\newcommand{\DeclareCampusProfile}[2]{%
+  \@for\fiiw@name:=#1\do{%
+    \expandafter\def\csname fiiw@profile@\fiiw@name\endcsname{#2}}}
+\@onlypreamble\DeclareCampusProfile
+\newcommand{\campussetup}[1]{%
+  \g@addto@macro\fiiw@overrides{\setkeys{fiiw}{#1}}}
+\@onlypreamble\campussetup
+\input{campus-profiles.tex}
+
+\AtBeginDocument{%
+  \@ifundefined{fiiw@profile@\@campus}{%
+    \PackageError{fiiw-campus}{Unknown campus `\@campus'}%
+      {Select a campus listed in campus-profiles.tex.}%
+  }{%
+    \edef\fiiw@settings{\noexpand\setkeys{fiiw}{\csname fiiw@profile@\@campus\endcsname}}%
+    \fiiw@settings
+  }%
+  \fiiw@overrides}
+
+% Paper styling is scoped to the content. The group restores report headings,
+% fonts and spacing afterwards; geometry is explicitly restored as well.
+\newcommand{\fiiw@paperstyle}{%
+  \renewcommand{\baselinestretch}{1}%
+  \renewcommand{\familydefault}{cmr}%
+  \renewcommand{\rmdefault}{cmr}%
+  \renewcommand{\normalsize}{%
+    \@setfontsize\normalsize{10}{12}%
+    \abovedisplayskip=6pt plus 2pt minus 2pt
+    \belowdisplayskip=6pt plus 2pt minus 2pt
+    \abovedisplayshortskip=0pt plus 2pt
+    \belowdisplayshortskip=4pt plus 2pt minus 2pt}
+  \renewcommand{\small}{\@setfontsize\small{9}{11}}%
+  \renewcommand{\footnotesize}{\@setfontsize\footnotesize{8}{10}}%
+  \normalfont\normalsize
+  \setlength{\parindent}{1em}%
+  \setlength{\parskip}{0pt plus 0.5pt}%
+  \setlength{\columnsep}{9mm}%
+  \setlength{\emergencystretch}{1em}%
+  \setlength{\floatsep}{8pt plus 2pt minus 2pt}%
+  \setlength{\textfloatsep}{10pt plus 2pt minus 2pt}%
+  \setlength{\intextsep}{8pt plus 2pt minus 2pt}%
+  \setlength{\dblfloatsep}{8pt plus 2pt minus 2pt}%
+  \setlength{\dbltextfloatsep}{10pt plus 2pt minus 2pt}%
+  % Keep chapter counters, labels, optional titles and starred headings, but
+  % typeset chapters as continuous paper sections without forced page breaks.
+  \renewcommand{\chapter}{\@startsection{chapter}{0}{\z@}%
+    {-2.5ex plus -0.5ex minus -0.2ex}{1ex plus 0.2ex}%
+    {\normalfont\fontsize{12}{14}\selectfont\bfseries\raggedright}}%
+  \renewcommand{\section}{\@startsection{section}{1}{\z@}%
+    {-2ex plus -0.5ex minus -0.2ex}{0.7ex plus 0.2ex}%
+    {\normalfont\normalsize\bfseries\raggedright}}%
+  \renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
+    {-1.5ex plus -0.3ex minus -0.2ex}{0.5ex plus 0.2ex}%
+    {\normalfont\normalsize\itshape\raggedright}}%
+  \renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{\z@}%
+    {-1.5ex plus -0.3ex minus -0.2ex}{-1em}%
+    {\normalfont\normalsize\itshape}}%
+  \pagestyle{plain}}
+
+\newcommand{\fiiw@papertitle}{%
+  \begin{center}
+    {\fontsize{17.28}{21}\selectfont\bfseries\@title\par}%
+    \@ifundefined{@subtitle}{}{%
+      \ifx\@subtitle\@empty\else
+        \vspace{4pt}{\fontsize{11}{13}\selectfont\@subtitle\par}%
+      \fi}%
+    \@ifundefined{@forenameA}{}{%
+      \vspace{6pt}{\normalsize\@forenameA\space\@surnameA
+        \ifx\@forenameB\@empty\else
+          \quad\@forenameB\space\@surnameB
+        \fi\par}}%
+  \end{center}
+  \vspace{8pt}}
+
+% Count shipped pages, not page numbers: numbering resets cannot change the count.
+\newif\iffiiw@countcontent
+\newif\iffiiw@contentstarted
+\newcount\fiiw@contentpages
+\AddToHook{shipout/before}{%
+  \iffiiw@countcontent\global\advance\fiiw@contentpages by 1\fi}
+
+\newcommand{\thesiscontent}{%
+  \iffiiw@contentstarted
+    \PackageError{fiiw-campus}{Content has already started}{Use \string\thesiscontent\space only once.}%
+  \else
+    \clearpage
+    \iffiiw@paperlayout
+      \savegeometry{fiiw-before-content}%
+      \begingroup
+      \newgeometry{left=20mm,right=20mm,top=20mm,bottom=20mm}%
+      \fiiw@paperstyle
+      \ifnum\fiiw@columns=2\relax
+        \twocolumn[\fiiw@papertitle]%
+      \else
+        \onecolumn\fiiw@papertitle
+      \fi
+    \else
+      \ifnum\fiiw@columns=2\relax\twocolumn\else\onecolumn\fi
+    \fi
+    \pagenumbering{arabic}%
+    \global\fiiw@contentpages=0
+    \global\fiiw@contentstartedtrue
+    \global\fiiw@countcontenttrue
+  \fi}
+
+\newcommand{\finishthesiscontent}{%
+  \iffiiw@countcontent
+    % Flush the final page and all pending floats before stopping the count.
+    \clearpage
+    \global\fiiw@countcontentfalse
+    \typeout{FIIW content pages: \the\fiiw@contentpages; limit: \fiiw@maxcontentpages\space (0 = unlimited).}%
+    \ifnum\fiiw@maxcontentpages>0\relax
+      \ifnum\fiiw@contentpages>\fiiw@maxcontentpages\relax
+        \PackageWarningNoLine{fiiw-campus}{Content page limit exceeded for campus `\@campus':
+          \the\fiiw@contentpages\space pages (maximum \fiiw@maxcontentpages)}%
+      \fi
+    \fi
+    \onecolumn
+    \iffiiw@paperlayout
+      \endgroup
+      \loadgeometry{fiiw-before-content}%
+    \fi
+  \fi}
+
+% Also check documents whose counted content runs to the end of the document.
+\AtEndDocument{\finishthesiscontent}
+\endinput

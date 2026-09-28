@@ -2,42 +2,45 @@
 %                                                                      %
 % LaTeX, FIIW thesis template                                          %
 % 19/12/2023 v1.3                                                      %
-%  TODOs:                                                              %
-%   - Translate all comments to English                                %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 \documentclass[11pt,a4paper]{report} 
-% Indien je je thesis recto-verso wil afdrukken gebruik je onderstaande opties i.p.v. bovenstaande
+% For double-sided printing, use the document class options below instead.
 %\documentclass[11pt,a4paper,twoside,openright]{report}
 \usepackage[a4paper,left=3.5cm, right=2.5cm, top=3.5cm, bottom=3.5cm]{geometry}
 \usepackage{graphicx}
 \graphicspath{{./figs/}}                        % set graphics path to figs folder, ie now all file imports can be referenced relative to figs
-\usepackage[latin1]{inputenc}                   % om niet ascii karakters rechtstreeks te kunnen inputten
-%\usepackage[utf8]{inputenc}                    % commentarieer deze regel uit als je utf8 encoded files gebruikt in plaats van latin1
+% Source files use UTF-8. LuaLaTeX and XeLaTeX handle UTF-8 natively.
+\usepackage{iftex}
+\ifPDFTeX
+    \usepackage[utf8]{inputenc}
+    \DeclareUnicodeCharacter{2212}{\ensuremath{-}} % Unicode minus sign
+    \DeclareUnicodeCharacter{2010}{-}             % Unicode hyphen
+\fi
+\usepackage[T1]{fontenc}                        % encoding supported by the template's text fonts
 \usepackage[backend=biber, style=ieee, 
 citestyle=numeric-comp, maxnames=99]{biblatex}  % make use of the biblatex package to cite references
 \addbibresource{bib.bib}
 \AtBeginBibliography{\footnotesize}
 
 \usepackage{cmbright}                           % new improved font
-\usepackage{listings}             		        % voor het weergeven van broncode
+\usepackage{listings}             		        % display source code
 \usepackage{minted}                             % for beautiful listings
 \usemintedstyle{borland}
-\usepackage{verbatim}					        % weergeven van code, commando's, ...
-\usepackage{hyperref}					        % maak PDF van de thesis navigeerbaar
-\usepackage{url}						        % URL's invoegen in tekst met behulp van \url{http://}
-\usepackage[small,bf,hang]{caption}             % om de captions wat te verbeteren
-\usepackage[final]{pdfpages}                    % gebruikt voor het invoegen van het artikel in pdf-formaat
-%\usepackage{pslatex}					        % andere lettertype's dan de standaard types
+\usepackage{verbatim}					        % display code, commands, and other literal text
+\usepackage{hyperref}					        % add hyperlinks and navigation to the thesis PDF
+\usepackage{url}						        % insert URLs in the text using \url{http://}
+\usepackage[small,bf,hang]{caption}             % customise figure and table captions
+\usepackage[final]{pdfpages}                    % include the scientific article as a PDF
+%\usepackage{pslatex}					        % use alternative fonts instead of the default fonts
 
-%\usepackage{sectsty}					        % aanpassen van de fonts van sections en chapters
+%\usepackage{sectsty}					        % customise section and chapter heading fonts
 %\allsectionsfont{\sffamily}
 %\chapterfont{\raggedleft\sffamily}
 
-\usepackage{float}                              % De optie H voor de plaatsing van figuren op de plaats waar je ze invoegt. bvb. \begin{figure}[H]
-%\usepackage{longtable}					        % tabellen die over meerdere pagina's gespreid worden
-%\usepackage[times]{quotchap}                   % indien je fancy hoofdstuktitels wil
+\usepackage{float}                              % use H to place a figure exactly where it appears in the source, e.g. \begin{figure}[H]
+%\usepackage{longtable}					        % tables spanning multiple pages; needed for the optional symbol list
+%\usepackage[times]{quotchap}                   % use decorative chapter headings
 %\usepackage[none]{hyphenat}
 %\usepackage{latexsym}
 \usepackage{amsmath}
@@ -53,7 +56,6 @@ citestyle=numeric-comp, maxnames=99]{biblatex}  % make use of the biblatex packa
 
 %%%% Tikz %%%%
 \usepackage{pgfplots}
-\DeclareUnicodeCharacter{2212}{−}
 \usepgfplotslibrary{groupplots,dateplot}
 \usetikzlibrary{patterns,shapes.arrows}
 \pgfplotsset{compat=newest}
@@ -90,32 +92,36 @@ citestyle=numeric-comp, maxnames=99]{biblatex}  % make use of the biblatex packa
 
 
 
-%door onderstaande regels in commentaar te zetten, of op false, kan je pagina's weglaten
-%bijvoorbeeld het weglaten van een voorwoord, lijst met symbolen, ...
+% Comment out the switches below, or set them to false, to omit optional pages.
+% For example, omit the preface or the list of symbols.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%voorwoord toevoegen?
+% Include a preface?
 \acknowledgementspagetrue
-\acknowledgements{preface}			%.tex file met daarin het voorwoord
-%abstract toevoegen?
+\acknowledgements{preface}			% .tex file containing the preface
+% Include abstracts?
 \abstractpagetrue
-\abstracts{abstract}					%.tex file met daarin het abstract
-%lijst van figuren toevoegen?
+\abstracts{abstract}					% base filename for the Dutch and English abstracts
+% Include a list of figures?
 %\listoffigurespagetrue
-%lijst van tabellen toevoegen?
+% Include a list of tables?
 %\listoftablespagetrue
-%lijst van symbolen toevoegen?
+% Include a list of symbols?
 %\listofsymbolspagetrue
-%\listofsymbols{symbolen}				%.tex file met daarin de lijst van symbolen
+%\listofsymbols{symbols}				% .tex file containing the list of symbols
 
 
 % Information about your discipline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\opleiding{discipline name}
-\afdeling{specialisation}
-\campus{ghenteng}                       % Define your campus and language (append "eng" to load the English template)
-                                            % campuses: denayer, geel, gent, groept, brugge (denayereng, geeleng, ghenteng, groupteng, brugeseng)
-\title{Title Masterproef}
+\programme{programme name}
+\specialisation{specialisation}
+\campus{ghenteng}                       % Select campus, language, and layout from campus-profiles.tex
+% NL: denayer, geel, gent, groept, brugge
+% EN: denayereng, geeleng, ghenteng, groupteng, brugeseng
+% gent and ghenteng: extended-paper layout, two columns, maximum 20 content pages.
+% Optional override if your programme requires different rules:
+%\campussetup{layout=report,columns=1,max-content-pages=30}
+\title{Master's thesis title}
 \subtitle{Subtitle (optional)}
 \forenameA{first name}
 \surnameA{last name}
@@ -124,8 +130,8 @@ citestyle=numeric-comp, maxnames=99]{biblatex}  % make use of the biblatex packa
 \academicyear{2024 - 2025}
 
 
-\promotorA[Promotor(en)]{My Promotor} %for English use Supervisor(s)
-\promotorB[Co-promotor(en)]{My Co-promotor\\My company promotor}
+\supervisorA[Supervisor(s)]{My supervisor}
+\supervisorB[Co-supervisor(s)]{My co-supervisor\\My company supervisor}
 
 \loadLanguage% keep this untouched
 
@@ -135,32 +141,37 @@ citestyle=numeric-comp, maxnames=99]{biblatex}  % make use of the biblatex packa
 \preface%
 
 \printnoidxglossary[type=\acronymtype]%
-\clearpage
 
-\input{chapters/hfdst1.tex}
-%\input{hfdst1}
-%\input{hfdst2}
-%\input{hfdst3}
+% Start the campus layout and page count after all front matter.
+\thesiscontent
 
-% Bibliografie: referenties. De items zitten in bib.bib
+\input{chapters/chapter1.tex}
+%\input{chapters/chapter2.tex}
+%\input{chapters/chapter3.tex}
+
+% End the counted chapters; bibliography and appendices use one column.
+% Move this command after \printbibliography if references count towards the limit.
+\finishthesiscontent
+
+% Bibliography: references are stored in bib.bib.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \printbibliography
 
 
-% Eventueel enkele appendices
+% Optional appendices
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \appendix
-\input{chapters/bijlage1}
+\input{chapters/appendix1}
 
-% Bijlage met daarin het wetenschappelijk artikel
+% Appendix containing the scientific article
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Beschrijving van deze masterproef in de vorm van een wetenschappelijk artikel}
+\chapter{Scientific article describing this thesis}
 The thesis should also contain a short scientific article. If you write your thesis in Dutch, you must write the article in English, and vice versa. We advise you to employ the IEEE Manuscript Templates for Conference Proceedings (\url{https://www.overleaf.com/latex/templates/ieee-conference-template/grfzhhncsfqn}).
 Compile the article in another project and include the generated pdf file as shown below:
 
 \includepdf{article.pdf}
 
-% Bijlage met daarin de poster
+% Appendix containing the poster
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Poster}
 %\includepdf{poster.pdf}
